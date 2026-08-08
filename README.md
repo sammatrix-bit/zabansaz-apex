@@ -4,7 +4,7 @@
 ![GitHub Forks](https://img.shields.io/github/forks/sammatrix-bit/zabansaz-apex?style=flat-square)
 ![GitHub Issues](https://img.shields.io/github/issues/sammatrix-bit/zabansaz-apex?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
-##https://sammatrix-bit.github.io/zabansaz-apex/#demo
+https://sammatrix-bit.github.io/zabansaz-apex/
 
 
 
