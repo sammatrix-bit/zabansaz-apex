@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zabansaz Apex | رمزنگاری چت با دوستانت</title>
+  <meta name="description" content="Zabansaz Apex یک اکستنشن رمزنگاری سرتاسری برای چت‌های وب است. تو و دوستت با یک توکن مشترک پیام‌ها را رمزشده رد و بدل می‌کنید." />
+  <meta name="theme-color" content="#0f0718" />
+
+  <style>
+    :root {
+      --bg: #0f0718;
+      --card: rgba(23, 12, 40, 0.74);
+      --card2: rgba(14, 7, 26, 0.84);
+      --text: #f4efff;
+      --muted: #a89cc8;
+      --accent: #a78bfa;
+      --accent2: #f0abfc;
+      --pink: #e879f9;
+      --green: #34d399;
+      --warn: #fbbf24;
+      --border: rgba(167, 139, 250, 0.22);
+      --border2: rgba(232, 121, 249, 0.28);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.16), transparent 25%),
+        radial-gradient(circle at 85% 10%, rgba(232, 121, 249, 0.12), transparent 22%),
+        radial-gradient(circle at 70% 85%, rgba(52, 211, 153, 0.08), transparent 20%),
+        linear-gradient(135deg, #0f0718, #120826 45%, #090310);
+      color: var(--text);
+      font-family: Tahoma, Arial, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+      direction: rtl;
+      line-height: 1.95;
+    }
+
+    ::selection { background: rgba(232, 121, 249, 0.35); }
+    a { color: inherit; text-decoration: none; }
+
+    .bg { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.35;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .b1 { width: 280px; height: 280px; background: rgba(139, 92, 246, 0.35); top: 8%; right: -70px; }
+    .b2 { width: 230px; height: 230px; background: rgba(232, 121, 249, 0.28); bottom: 10%; left: -60px; animation-delay: 2s; }
+    .b3 { width: 190px; height: 190px; background: rgba(52, 211, 153, 0.18); top: 45%; left: 25%; animation-delay: 4s; }
+
+    @keyframes float {
+      from { transform: translateY(0px) scale(1); }
+      to { transform: translateY(-28px) scale(1.06); }
+    }
+
+    .nav {
+      position: fixed;
+      inset-inline: 0;
+      top: 0;
+      z-index: 60;
+      background: rgba(9, 3, 16, 0.55);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(167, 139, 250, 0.16);
+    }
+
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: bold; }
+
+    .brand-logo {
+      width: 36px; height: 36px;
+      border-radius: 11px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(232, 121, 249, 0.25));
+      border: 1px solid var(--border2);
+      color: var(--accent2);
+      box-shadow: 0 0 25px rgba(232, 121, 249, 0.15);
+      transform: rotate(-5deg);
+      flex: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a { padding: 8px 10px; border-radius: 11px; transition: 0.18s; }
+    .nav-links a:hover { color: var(--text); background: rgba(167, 139, 250, 0.12); }
+
+    .nav-cta {
+      color: white !important;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.95), rgba(219, 39, 119, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-weight: bold;
+    }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 18px; }
+
+    header { min-height: 100svh; display: flex; align-items: center; padding: 110px 0 56px; }
+
+    .hero { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 18px; align-items: stretch; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-main { padding: 30px; position: relative; overflow: hidden; }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: -35%;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(240, 171, 252, 0.10), transparent 24%),
+        radial-gradient(circle at 80% 65%, rgba(139, 92, 246, 0.12), transparent 24%);
+      pointer-events: none;
+    }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px;
+      background: rgba(52, 211, 153, 0.09);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      color: #c9f8e7; font-size: 12px; margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 5vw, 60px);
+      line-height: 1.4;
+      background: linear-gradient(90deg, #fff, #e9d5ff 35%, #f5d0fe 68%, #fff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead { margin: 0 0 22px; color: var(--muted); font-size: 15px; max-width: 720px; }
+
+    .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 18px; border-radius: 15px; border: 0; cursor: pointer;
+      font-family: inherit; font-size: 13px; font-weight: bold; transition: 0.18s; text-align: center;
+    }
+
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.07); }
+    .btn:active { transform: translateY(0) scale(0.99); }
+
+    .primary {
+      color: white;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.97), rgba(219, 39, 119, 0.97));
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 12px 30px rgba(139, 92, 246, 0.24);
+    }
+
+    .ghost { color: var(--text); background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(167, 139, 250, 0.35); }
+
+    .small-note {
+      font-size: 12px; color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(167, 139, 250, 0.35);
+      border-radius: 16px; padding: 11px 13px;
+    }
+
+    .hero-side { padding: 24px; display: flex; flex-direction: column; justify-content: center; gap: 14px; position: relative; overflow: hidden; }
+
+    .hero-side::after {
+      content: "";
+      position: absolute;
+      width: 190px; height: 190px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 121, 249, 0.22), transparent 65%);
+      top: -55px; left: -55px;
+      pointer-events: none;
+    }
+
+    .chat { display: flex; flex-direction: column; gap: 10px; }
+
+    .bubble {
+      max-width: 90%; padding: 12px 14px; border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); font-size: 13px;
+    }
+
+    .bubble.user { align-self: flex-start; background: rgba(139, 92, 246, 0.20); border-bottom-right-radius: 6px; }
+
+    .bubble.cipher {
+      align-self: flex-end;
+      direction: ltr; text-align: left;
+      font-family: Consolas, monospace; letter-spacing: 1px;
+      color: #f0abfc; background: rgba(7, 3, 14, 0.72);
+      border-bottom-left-radius: 6px; overflow-wrap: anywhere;
+    }
+
+    .bubble.ok { align-self: flex-start; background: rgba(52, 211, 153, 0.12); border-bottom-right-radius: 6px; }
+
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+
+    .stat { background: var(--card2); border: 1px solid rgba(167, 139, 250, 0.18); border-radius: 17px; padding: 12px 9px; text-align: center; }
+    .stat b { display: block; font-size: 13.5px; color: #f8daff; }
+    .stat span { font-size: 10.5px; color: var(--muted); }
+
+    section { padding: 80px 0; scroll-margin-top: 84px; }
+
+    .section-head { max-width: 820px; margin-bottom: 26px; }
+
+    h2 { margin: 0 0 10px; font-size: clamp(22px, 3vw, 35px); color: #f6efff; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .feature {
+      padding: 18px; border-radius: 22px;
+      background: var(--card);
+      border: 1px solid rgba(167, 139, 250, 0.20);
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .feature:hover { transform: translateY(-4px); border-color: rgba(240, 171, 252, 0.45); box-shadow: 0 18px 35px rgba(139, 92, 246, 0.15); }
+
+    .icon {
+      width: 44px; height: 44px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: rgba(139, 92, 246, 0.14);
+      border: 1px solid rgba(232, 121, 249, 0.28);
+      margin-bottom: 12px; font-size: 18px;
+    }
+
+    .feature h3 { margin: 0 0 7px; font-size: 15px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 12.8px; }
+
+    .story { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .story-card {
+      padding: 20px; border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)), var(--card);
+      border: 1px solid rgba(167, 139, 250, 0.22);
+      position: relative; overflow: hidden;
+    }
+
+    .story-card::after {
+      content: "";
+      position: absolute;
+      width: 110px; height: 110px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(240, 171, 252, 0.15), transparent 68%);
+      left: -35px; bottom: -35px;
+      pointer-events: none;
+    }
+
+    .story-num {
+      width: 34px; height: 34px; border-radius: 11px;
+      display: grid; place-items: center;
+      font-weight: bold; color: white;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.95), rgba(219, 39, 119, 0.95));
+      margin-bottom: 12px;
+      box-shadow: 0 10px 22px rgba(139, 92, 246, 0.25);
+    }
+
+    /* ================= دموی چت واقعی با اسکرول ================= */
+
+    .demo-section { height: 820vh; position: relative; padding: 0; }
+
+    .demo-sticky {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 86px 0 24px;
+      overflow: hidden;
+    }
+
+    .demo-wrap {
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .demo-side { min-width: 0; }
+
+    .demo-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--accent2); font-size: 12px;
+      border: 1px solid rgba(232, 121, 249, 0.3);
+      background: rgba(232, 121, 249, 0.07);
+      padding: 7px 12px; border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    #demoTitle {
+      margin: 0 0 8px;
+      font-size: clamp(20px, 2.6vw, 30px);
+      color: #f6efff;
+    }
+
+    #demoCaption {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 13.5px;
+      max-width: 560px;
+      min-height: 74px;
+    }
+
+    .token-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+    .tk {
+      direction: ltr;
+      font-family: Consolas, monospace;
+      font-size: 11px;
+      padding: 7px 11px;
+      border-radius: 12px;
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      transition: 0.3s ease;
+    }
+
+    .tk.lit {
+      color: #c9f8e7;
+      border-color: rgba(52, 211, 153, 0.5);
+      background: rgba(52, 211, 153, 0.10);
+      box-shadow: 0 0 18px rgba(52, 211, 153, 0.2);
+    }
+
+    .demo-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .dstep {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11.5px;
+      background: rgba(255, 255, 255, 0.02);
+      transition: 0.3s ease;
+    }
+
+    .dstep b {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: inline-grid; place-items: center;
+      font-size: 10px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .dstep.active {
+      color: white;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.95), rgba(219, 39, 119, 0.95));
+      border-color: transparent;
+      box-shadow: 0 10px 24px rgba(139, 92, 246, 0.25);
+    }
+
+    .chat-stack { display: grid; justify-items: center; }
+
+    .chat-app {
+      grid-area: 1 / 1;
+      width: 100%;
+      max-width: 430px;
+      height: min(72vh, 640px);
+      border-radius: 26px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      background: #0d0616;
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .chat-app.ali { z-index: 2; }
+    .chat-app.sara { z-index: 1; opacity: 0; transform: translateY(18px) scale(0.98); pointer-events: none; }
+
+    .chat-app.ali:not(.active) { opacity: 0; transform: translateY(-18px) scale(0.98); pointer-events: none; }
+    .chat-app.sara.active { opacity: 1; transform: none; pointer-events: auto; z-index: 3; }
+
+    .chat-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.28), rgba(219, 39, 119, 0.22));
+      border-bottom: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-weight: bold; color: white;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(219, 39, 119, 0.9));
+      flex: none;
+    }
+
+    .avatar.b { background: linear-gradient(135deg, rgba(52, 211, 153, 0.85), rgba(14, 165, 233, 0.85)); }
+
+    .chat-header b { display: block; font-size: 13px; }
+    .chat-header small { color: rgba(255, 255, 255, 0.65); font-size: 10.5px; }
+
+    .apex-chip {
+      margin-right: auto;
+      font-size: 10px;
+      color: #c9f8e7;
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      padding: 5px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background:
+        radial-gradient(circle at 30% 10%, rgba(139, 92, 246, 0.08), transparent 40%),
+        radial-gradient(circle at 80% 90%, rgba(232, 121, 249, 0.05), transparent 40%),
+        #0d0616;
+      scrollbar-width: thin;
+    }
+
+    .day-chip, .sys-note, .server-chip {
+      align-self: center;
+      font-size: 10.5px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(167, 139, 250, 0.18);
+      padding: 5px 12px;
+      border-radius: 999px;
+      text-align: center;
+      max-width: 92%;
+    }
+
+    .server-chip {
+      color: #ffe7ad;
+      border-color: rgba(251, 191, 36, 0.35);
+      background: rgba(251, 191, 36, 0.07);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: 0.4s ease;
+    }
+
+    .server-chip.show { opacity: 1; transform: none; }
+
+    .bub {
+      max-width: 80%;
+      padding: 9px 12px 7px;
+      border-radius: 16px;
+      font-size: 12.5px;
+      line-height: 1.9;
+      position: relative;
+      opacity: 0;
+      transform: translateY(14px) scale(0.97);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      word-break: break-word;
+    }
+
+    .bub.show { opacity: 1; transform: none; }
+
+    .bub.sent {
+      align-self: flex-start;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.34), rgba(219, 39, 119, 0.30));
+      border: 1px solid rgba(232, 121, 249, 0.22);
+      border-bottom-right-radius: 5px;
+    }
+
+    .bub.recv {
+      align-self: flex-end;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom-left-radius: 5px;
+    }
+
+    .cipher-text {
+      direction: ltr;
+      text-align: left;
+      font-family: Consolas, monospace;
+      letter-spacing: 1px;
+      color: #f0abfc;
+      word-break: break-all;
+      display: block;
+      font-size: 11.5px;
+    }
+
+    .meta {
+      direction: ltr;
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      font-size: 9.5px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-right: 8px;
+      margin-top: 6px;
+      float: left;
+    }
+
+    .ticks { color: rgba(255, 255, 255, 0.55); letter-spacing: -2px; transition: color 0.3s; }
+    .ticks.read { color: #8ecbff; }
+
+    .zb-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px; height: 15px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #e879f9);
+      color: #fff;
+      font-size: 9px;
+      font-weight: bold;
+      line-height: 1;
+      margin-right: 5px;
+      vertical-align: middle;
+      box-shadow: 0 0 8px rgba(232, 121, 249, 0.55);
+      flex: none;
+    }
+
+    .plain-text { display: none; }
+
+    .bub.decrypted .cipher-text { display: none; }
+    .bub.decrypted .plain-text { display: inline; }
+
+    .bub.decrypted {
+      animation: decryptFlash 0.9s ease;
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+
+    @keyframes decryptFlash {
+      0% { box-shadow: 0 0 0 1px rgba(232, 121, 249, 0.9), 0 0 26px rgba(232, 121, 249, 0.55); }
+      100% { box-shadow: 0 0 0 1px rgba(232, 121, 249, 0.0), 0 0 0 rgba(0, 0, 0, 0); }
+    }
+
+    .chat-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid var(--border);
+    }
+
+    .input-pill {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      min-height: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 12px;
+      color: var(--text);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .t-plain { display: inline; }
+    .t-cipher {
+      display: none;
+      direction: ltr;
+      font-family: Consolas, monospace;
+      color: #f0abfc;
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .show { display: inline !important; }
+    .hide { display: none !important; }
+
+    .caret {
+      display: inline-block;
+      width: 2px;
+      height: 14px;
+      background: var(--accent2);
+      vertical-align: middle;
+      margin-right: 2px;
+      animation: caret 0.9s steps(1) infinite;
+    }
+
+    @keyframes caret { 50% { opacity: 0; } }
+
+    .send-btn {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 0;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.97), rgba(219, 39, 119, 0.97));
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      flex: none;
+    }
+
+    .send-btn.pressed {
+      transform: scale(0.82);
+      box-shadow: 0 0 22px rgba(232, 121, 249, 0.65);
+    }
+
+    .ext-toast {
+      position: absolute;
+      bottom: 66px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(10, 5, 20, 0.94);
+      border: 1px solid rgba(232, 121, 249, 0.5);
+      color: #fff;
+      font-size: 10.5px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: 0.3s ease;
+      white-space: nowrap;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .ext-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    #saraReply { display: none; }
+    .input-pill.typing #saraReply { display: inline; }
+
+    /* ================= پایان دموی چت ================= */
+
+    .steps { display: grid; gap: 12px; counter-reset: step; }
+
+    .step {
+      counter-increment: step;
+      position: relative;
+      padding: 18px 58px 18px 18px;
+      background: var(--card);
+      border: 1px solid rgba(167, 139, 250, 0.20);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .step::before {
+      content: counter(step);
+      position: absolute;
+      top: 17px; right: 15px;
+      width: 30px; height: 30px;
+      border-radius: 11px;
+      display: grid; place-items: center;
+      font-size: 13px; font-weight: bold; color: white;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.95), rgba(219, 39, 119, 0.95));
+      box-shadow: 0 10px 22px rgba(139, 92, 246, 0.22);
+    }
+
+    .step b { display: block; margin-bottom: 5px; }
+    .step p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .code {
+      direction: ltr;
+      display: inline-block;
+      background: rgba(7, 3, 14, 0.72);
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      color: #f0abfc;
+      padding: 2px 9px;
+      border-radius: 10px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      word-break: break-word;
+    }
+
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+
+    .tab-btn {
+      border: 1px solid rgba(167, 139, 250, 0.28);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: bold;
+      transition: 0.18s;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.95), rgba(219, 39, 119, 0.95));
+      border-color: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 10px 24px rgba(139, 92, 246, 0.22);
+    }
+
+    .tab-panel { display: none; padding: 20px; border-radius: 26px; background: var(--card); border: 1px solid rgba(167, 139, 250, 0.20); }
+    .tab-panel.active { display: block; }
+
+    .warn-box { background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.28); color: #ffe7ad; border-radius: 18px; padding: 13px 15px; font-size: 13px; margin: 12px 0; }
+    .ok-box { background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.25); color: #c9f8e7; border-radius: 18px; padding: 13px 15px; font-size: 13px; margin: 12px 0; }
+
+    .download-panel {
+      padding: 26px;
+      border-radius: 30px;
+      background: radial-gradient(circle at top right, rgba(232, 121, 249, 0.12), transparent 26%), var(--card);
+      border: 1px solid rgba(232, 121, 249, 0.25);
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      padding: 36px 0 46px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid rgba(167, 139, 250, 0.14);
+      background: rgba(7, 3, 14, 0.35);
+      backdrop-filter: blur(6px);
+    }
+
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .hero, .grid, .story { grid-template-columns: 1fr; }
+      header { padding-top: 96px; }
+      .stats { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+
+      .demo-wrap { grid-template-columns: 1fr; }
+      .chat-stack { order: 1; }
+      .demo-side { order: 2; margin-top: 16px; }
+      .chat-app { height: min(58vh, 520px); }
+      #demoCaption { min-height: 0; }
+      .demo-section { height: 700vh; }
+    }
+
+    @media (max-width: 640px) {
+      .btn-row .btn { width: 100%; }
+      .hero-main, .hero-side { padding: 20px; }
+      .tab-btn { flex: 1; }
+      .dstep span { display: none; }
+      .dstep { padding: 7px 9px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="brand-logo">⠿</span>
+        <span>Zabansaz Apex</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#what">برای چی ساخته شده؟</a>
+        <a href="#demo">دموی چت</a>
+        <a href="#features">امکانات</a>
+        <a href="#how">نصب</a>
+        <a href="#download" class="nav-cta">دانلود</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="container hero">
+      <div class="hero-main card reveal">
+        <div class="chip">🔐 ساخته‌شده برای پیام‌های خصوصی بین تو و دوستانت</div>
+
+        <h1>Zabansaz Apex</h1>
+
+        <p class="lead">
+          این برنامه برای وقتی ساخته شده که می‌خواهی با دوستت داخل چت‌های معمولی مثل روبیکا، تلگرام وب، واتساپ وب یا دیسکورد
+          پیام‌های رمزشده رد و بدل کنی. تو یک «زبان/توکن» می‌سازی، دوستت همان توکن را وارد می‌کند،
+          و بعد پیام‌های شما فقط برای کسی که همان توکن را دارد قابل خواندن می‌شود.
+        </p>
+
+        <div class="btn-row">
+          <a href="downloads/zabansaz-apex.zip" download="zabansaz-apex.zip" class="btn primary">⬇ دانلود Zabansaz Apex</a>
+          <a href="#demo" class="btn ghost">🎬 دیدن دموی چت واقعی</a>
+        </div>
+
+        <div class="small-note">
+          فایل دانلود: <span class="code">zabansaz-apex.zip</span> — بعد از دانلود حتماً آن را از حالت فشرده خارج کن و پوشه را Load unpacked کن.
+        </div>
+      </div>
+
+      <div class="hero-side card reveal">
+        <div class="chat">
+          <div class="bubble user">سلام! این پیام قبل از ارسال رمز شد.</div>
+          <div class="bubble cipher">⠿⠎⠇⠁⠍⠀⠭⠽⠵⠞⠼⠿⠋⠛⠇⠍⠝⠞⠒</div>
+          <div class="bubble ok">✓ دوستت با همان توکن پیام را رمزگشایی کرد.</div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><b>AES-256-GCM</b><span>رمزنگاری استاندارد</span></div>
+          <div class="stat"><b>⠿ الفبای بریل</b><span>نمایش متن رمزشده</span></div>
+          <div class="stat"><b>بدون سرور</b><span>همه‌چیز داخل مرورگر</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="what">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>این برنامه برای چه ساخته شده؟</h2>
+          <p>مثلاً تو می‌خواهی با دوستت صحبت کنی، اما نمی‌خواهی متن پیام به شکل ساده دیده شود.</p>
+        </div>
+
+        <div class="story">
+          <div class="story-card reveal">
+            <div class="story-num">1</div>
+            <h3>نصب روی هر دو طرف</h3>
+            <p>تو و دوستت هر دو اکستنشن Zabansaz Apex را نصب می‌کنید.</p>
+          </div>
+
+          <div class="story-card reveal">
+            <div class="story-num">2</div>
+            <h3>ساخت توکن مشترک</h3>
+            <p>یکی از شما یک زبان/توکن می‌سازد و آن را از یک راه امن به دوستش می‌دهد.</p>
+          </div>
+
+          <div class="story-card reveal">
+            <div class="story-num">3</div>
+            <h3>چت رمزشده</h3>
+            <p>پیام‌ها قبل از ارسال رمز می‌شوند و فقط با همان توکن رمزگشایی می‌شوند.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= دموی چت واقعی با اسکرول ================= -->
+    <section id="demo" class="demo-section">
+      <div class="demo-sticky">
+        <div class="container demo-wrap">
+
+          <div class="demo-side">
+            <div class="demo-kicker">🎬 دموی زنده — با اسکرول جلو برو</div>
+            <h2 id="demoTitle">توکن مشترک؛ کلید دو طرف</h2>
+            <p id="demoCaption">قبل از هر چیز، علی و سارا یک بار توکن مشترک را از یک راه امن رد و بدل کرده‌اند. این توکن مثل کلیدی است که فقط همین دو نفر آن را دارند.</p>
+
+            <div class="token-row">
+              <span class="tk lit" id="tkAli">🗝 Ali: ZBA4-7F2K</span>
+              <span class="tk lit" id="tkSara">🗝 Sara: ZBA4-7F2K</span>
+            </div>
+
+            <div class="demo-pills">
+              <div class="dstep"><b>۱</b><span>توکن</span></div>
+              <div class="dstep"><b>۲</b><span>تایپ</span></div>
+              <div class="dstep"><b>۳</b><span>Enter</span></div>
+              <div class="dstep"><b>۴</b><span>رمز</span></div>
+              <div class="dstep"><b>۵</b><span>ارسال</span></div>
+              <div class="dstep"><b>۶</b><span>دریافت</span></div>
+              <div class="dstep"><b>۷</b><span>رمزگشایی</span></div>
+              <div class="dstep"><b>۸</b><span>پاسخ</span></div>
+            </div>
+          </div>
+
+          <div class="chat-stack">
+
+            <!-- چت از دید علی -->
+            <div class="chat-app ali active" id="aliView">
+              <div class="chat-header">
+                <span class="avatar b">س</span>
+                <div>
+                  <b>سارا</b>
+                  <small>آنلاین</small>
+                </div>
+                <span class="apex-chip">⠿ Apex فعال — قفل Enter</span>
+              </div>
+
+              <div class="chat-body" id="aliBody">
+                <div class="day-chip">امروز</div>
+                <div class="sys-note">🗝️ توکن مشترک از قبل بین شما رد و بدل شده است</div>
+
+                <div class="server-chip" id="serverChip">
+                  🛡 آنچه پلتفرم و سرور می‌بینند: فقط متن بریل — نه معنا، نه محتوا
+                </div>
+
+                <div class="bub sent" id="sentCipher">
+                  <span class="cipher-text">⠿⠎⠇⠁⠍⠀⠎⠁⠗⠁⠂⠀⠋⠗⠙⠁⠀⠍⠊⠁⠊⠀⠙⠁⠝⠂⠹⠓⠁⠦</span>
+                  <span class="meta">14:02 <span class="ticks" id="ticks">✓</span></span>
+                </div>
+              </div>
+
+              <div class="chat-input">
+                <div class="input-pill">
+                  <span class="t-plain" id="inPlain"></span>
+                  <span class="t-cipher" id="inCipher">⠿⠎⠇⠁⠍⠀⠎⠁⠗⠁⠂⠀⠋⠗⠙⠁⠀⠍⠊⠁⠊⠀⠙⠁⠝⠂⠹⠓⠁⠦</span>
+                  <span class="caret" id="aliCaret" style="display:none;"></span>
+                </div>
+                <button class="send-btn" id="aliSend" type="button">➤</button>
+              </div>
+
+              <div class="ext-toast" id="aliToast"></div>
+            </div>
+
+            <!-- چت از دید سارا -->
+            <div class="chat-app sara" id="saraView">
+              <div class="chat-header">
+                <span class="avatar">ع</span>
+                <div>
+                  <b>علی</b>
+                  <small>آخرین بازدید: همین الان</small>
+                </div>
+                <span class="apex-chip">⠿ Apex فعال — همان توکن</span>
+              </div>
+
+              <div class="chat-body" id="saraBody">
+                <div class="day-chip">امروز</div>
+                <div class="sys-note">🗝️ توکن مشترک از قبل بین شما رد و بدل شده است</div>
+
+                <div class="bub recv" id="saraBub">
+                  <span class="cipher-text">⠿⠎⠇⠁⠍⠀⠎⠁⠗⠁⠂⠀⠋⠗⠙⠁⠀⠍⠊⠁⠊⠀⠙⠁⠝⠂⠹⠓⠁⠦</span>
+                  <span class="plain-text">سلام سارا! فردا میای دانشگاه؟<span class="zb-badge" title="این پیام رمزشده بود و رمزگشایی شد 🔒">✓</span></span>
+                  <span class="meta">14:02</span>
+                </div>
+              </div>
+
+              <div class="chat-input">
+                <div class="input-pill" id="saraInputPill">
+                  <span id="saraReply">آره، ساعت ۱۰ می‌بینمت 😄</span>
+                  <span class="caret" id="saraCaret"></span>
+                </div>
+                <button class="send-btn" type="button">➤</button>
+              </div>
+
+              <div class="ext-toast" id="saraToast"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================= پایان دمو ================= -->
+
+    <section id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>امکانات Zabansaz Apex</h2>
+          <p>تمرکز برنامه روی سادگی، رمزنگاری استاندارد و استفاده روی چت‌های وب است.</p>
+        </div>
+
+        <div class="grid">
+          <div class="feature reveal"><div class="icon">🗝️</div><h3>توکن مشترک</h3><p>توکن مثل کلید خصوصی بین تو و دوستت است. هر دو طرف باید همان توکن را داشته باشند.</p></div>
+          <div class="feature reveal"><div class="icon">🔐</div><h3>AES-256-GCM</h3><p>پیام‌ها با رمزنگاری استاندارد AES-256-GCM محافظت می‌شوند و کلید از توکن مشترک ساخته می‌شود.</p></div>
+          <div class="feature reveal"><div class="icon">⠿</div><h3>خروجی بریل</h3><p>متن رمزشده با الفبای بریل یونیکد نمایش داده می‌شود؛ همان چیزی که لوگوی ⠿ برنامه از آن گرفته شده.</p></div>
+          <div class="feature reveal"><div class="icon">🔍</div><h3>رمزگشایی خودکار</h3><p>وقتی زبان فعال باشد، پیام‌های رمزشده داخل صفحه چت به‌صورت خودکار باز می‌شوند و تیک بنفش ✓ می‌گیرند.</p></div>
+          <div class="feature reveal"><div class="icon">⏎</div><h3>قفل Enter</h3><p>در کامپیوتر، Enter اول متن را رمز می‌کند و بعد پیام را می‌فرستد؛ هیچ متن ساده‌ای بیرون نمی‌رود.</p></div>
+          <div class="feature reveal"><div class="icon">📱</div><h3>مناسب موبایل</h3><p>در نسخه‌های جدیدتر می‌توان دکمه رمزی مخصوص موبایل را فعال کرد تا جای Enter عمل کند.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>آموزش نصب گام‌به‌گام</h2>
+          <p>اول سیستم‌عامل خودت را انتخاب کن.</p>
+        </div>
+
+        <div class="tabs reveal">
+          <button class="tab-btn active" type="button" data-tab="windows-tab">💻 ویندوز / کامپیوتر</button>
+          <button class="tab-btn" type="button" data-tab="android-tab">📱 اندروید</button>
+        </div>
+
+        <div id="windows-tab" class="tab-panel active reveal">
+          <div class="ok-box">روی ویندوز می‌توانی از Chrome، Edge یا Brave استفاده کنی.</div>
+
+          <div class="steps">
+            <div class="step"><b>دانلود فایل</b><p>دکمه دانلود را بزن تا فایل <span class="code">zabansaz-apex.zip</span> دانلود شود.</p></div>
+            <div class="step"><b>استخراج فایل زیپ</b><p>فایل زیپ را Extract کن. باید پوشه‌ای بیرون بیاید که داخلش <span class="code">manifest.json</span> وجود دارد.</p></div>
+            <div class="step"><b>باز کردن صفحه اکستنشن‌ها</b><p>در کروم آدرس <span class="code">chrome://extensions</span> را باز کن. در اج: <span class="code">edge://extensions</span></p></div>
+            <div class="step"><b>روشن کردن Developer mode</b><p>گزینه حالت توسعه‌دهنده یا Developer mode را روشن کن.</p></div>
+            <div class="step"><b>زدن Load unpacked</b><p>دکمه Load unpacked را بزن و پوشه استخراج‌شده را انتخاب کن.</p></div>
+            <div class="step"><b>ساخت زبان مشترک</b><p>روی آیکن اکستنشن کلیک کن، یک زبان بساز، توکن را کپی کن و به دوستت بده.</p></div>
+          </div>
+        </div>
+
+        <div id="android-tab" class="tab-panel reveal">
+          <div class="warn-box">
+            نکته مهم: مرورگر رسمی Chrome در اندروید از نصب اکستنشن پشتیبانی نمی‌کند.
+            برای اندروید بهتر است از Kiwi Browser استفاده کنی.
+          </div>
+
+          <div class="steps">
+            <div class="step"><b>نصب Kiwi Browser</b><p>از Play Store برنامه Kiwi Browser را نصب کن.</p></div>
+            <div class="step"><b>دانلود فایل اکستنشن</b><p>فایل <span class="code">zabansaz-apex.zip</span> را از همین سایت دانلود کن.</p></div>
+            <div class="step"><b>استخراج فایل زیپ</b><p>با Files یا ZArchiver فایل زیپ را استخراج کن تا پوشه‌ای با <span class="code">manifest.json</span> داشته باشی.</p></div>
+            <div class="step"><b>باز کردن Extensions در Kiwi</b><p>Kiwi را باز کن، روی سه‌نقطه بزن و Extensions را انتخاب کن.</p></div>
+            <div class="step"><b>فعال کردن Developer Mode</b><p>در صفحه Extensions گزینه Developer Mode را روشن کن.</p></div>
+            <div class="step"><b>Load unpacked</b><p>گزینه Load unpacked extension را بزن و پوشه استخراج‌شده را انتخاب کن.</p></div>
+            <div class="step"><b>باز کردن سایت چت</b><p>وارد سایت چت شو. اگر لازم بود، از منوی مرورگر گزینه Desktop site را فعال کن.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="security">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>نکته امنیتی مهم</h2>
+          <p>قبل از استفاده، این قسمت را حتماً بخوان.</p>
+        </div>
+
+        <div class="grid reveal">
+          <div class="feature"><div class="icon">🗝️</div><h3>توکن = کلید مخفی</h3><p>هر کسی توکن را داشته باشد می‌تواند پیام‌ها را بخواند. توکن را فقط به دوست مورد اعتمادت بده.</p></div>
+          <div class="feature"><div class="icon">📡</div><h3>متادیتا مخفی نمی‌شود</h3><p>این برنامه متن پیام را رمز می‌کند، ولی اینکه چه کسی به چه کسی پیام می‌دهد برای خود پلتفرم قابل مشاهده است.</p></div>
+          <div class="feature"><div class="icon">🧠</div><h3>بدون حساب کاربری</h3><p>زبان‌ها و توکن‌ها داخل همان مرورگر ذخیره می‌شوند. نیازی به ثبت‌نام یا سرور نیست.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="container">
+        <div class="download-panel reveal">
+          <div class="section-head" style="margin-bottom:0;">
+            <h2>دانلود Zabansaz Apex</h2>
+            <p>فایل فعلی: <span class="code">zabansaz-apex.zip</span> — بعد از دانلود، فایل را استخراج کن و طبق آموزش بالا نصب کن.</p>
+          </div>
+
+          <div class="btn-row" style="margin-top:16px;">
+            <a href="downloads/zabansaz-apex.zip" download="zabansaz-apex.zip" class="btn primary">⬇ دانلود مستقیم zabansaz-apex.zip</a>
+            <a href="#how" class="btn ghost">📚 دیدن دوباره آموزش نصب</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Zabansaz Apex — اکستنشن رمزنگاری چت وب | ساخته‌شده برای پیام‌های خصوصی بین دوستان
+    </div>
+  </footer>
+
+  <script>
+    // ===== Tabs =====
+    var tabButtons = document.querySelectorAll('.tab-btn');
+    var tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = this.getAttribute('data-tab');
+        tabButtons.forEach(function (b) { b.classList.remove('active'); });
+        tabPanels.forEach(function (p) { p.classList.remove('active'); });
+        this.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // ===== Reveal on scroll =====
+    var revealEls = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14 });
+
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('visible'); });
+    }
+
+    // ===== دموی چت واقعی با اسکرول =====
+    var STEPS = 8;
+
+    var PLAIN = 'سلام سارا! فردا میای دانشگاه؟';
+    var CIPHER = '⠿⠎⠇⠁⠍⠀⠎⠁⠗⠁⠂⠀⠋⠗⠙⠁⠀⠍⠊⠁⠊⠀⠙⠁⠝⠂⠹⠓⠁⠦';
+
+    var TITLES = [
+      'توکن مشترک؛ کلید دو طرف',
+      'علی پیامش را می‌نویسد',
+      'Enter فشرده می‌شود — اما قفل می‌شود',
+      'رمزنگاری AES-256-GCM',
+      'ارسال فقط متن رمزشده',
+      'دریافت در گوشی سارا',
+      'رمزگشایی خودکار',
+      'پاسخ سارا؛ تکرار چرخه'
+    ];
+
+    var CAPS = [
+      'قبل از هر چیز، علی و سارا یک بار توکن مشترک را از یک راه امن رد و بدل کرده‌اند. این توکن مثل کلیدی است که فقط همین دو نفر آن را دارند.',
+      'علی داخل کادر چت شروع به تایپ می‌کند: «سلام سارا! فردا میای دانشگاه؟» — هنوز هیچ چیزی ارسال نشده است.',
+      'علی کلید Enter را می‌زند، اما «قفل تایپ» اکستنشن Enter را می‌قاپد. هیچ متن ساده‌ای اجازه بیرون رفتن ندارد.',
+      'اکستنشن متن را با AES-256-GCM رمز می‌کند و به الفبای بریل درمی‌آورد. داخل کادر دیگر فقط بریل دیده می‌شود.',
+      'پیام رمزشده ارسال می‌شود و تیک می‌خورد. سرور و پلتفرم فقط همین بریل را می‌بینند — محتوا برای آن‌ها پنهان است.',
+      'در گوشی سارا، پیام دقیقاً همان‌طور که از سرور رد شده می‌رسد: یک متن بریل که برای سارا هم در نگاه اول ناخوانا است.',
+      'اکستنشن سارا همان توکن مشترک را دارد؛ پس به‌صورت خودکار رمزگشایی می‌کند، متن اصلی را نشان می‌دهد و تیک بنفش ✓ می‌گذارد.',
+      'سارا جوابش را تایپ می‌کند — و برای پیام او دقیقاً همین چرخه تکرار می‌شود: رمز، ارسال، رمزگشایی.'
+    ];
+
+    var demoSec = document.getElementById('demo');
+    var aliView = document.getElementById('aliView');
+    var saraView = document.getElementById('saraView');
+    var pills = document.querySelectorAll('.dstep');
+    var capTitle = document.getElementById('demoTitle');
+    var capText = document.getElementById('demoCaption');
+
+    var tkAli = document.getElementById('tkAli');
+    var tkSara = document.getElementById('tkSara');
+
+    var inPlain = document.getElementById('inPlain');
+    var inCipher = document.getElementById('inCipher');
+    var aliCaret = document.getElementById('aliCaret');
+    var aliSend = document.getElementById('aliSend');
+    var aliToast = document.getElementById('aliToast');
+    var aliBody = document.getElementById('aliBody');
+
+    var sentCipher = document.getElementById('sentCipher');
+    var ticks = document.getElementById('ticks');
+    var serverChip = document.getElementById('serverChip');
+
+    var saraBody = document.getElementById('saraBody');
+    var saraBub = document.getElementById('saraBub');
+    var saraToast = document.getElementById('saraToast');
+    var saraInputPill = document.getElementById('saraInputPill');
+    var saraReply = document.getElementById('saraReply');
+
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var lastStep = -1;
+    var typingTimer = null;
+
+    function typeInto(el, text) {
+      clearInterval(typingTimer);
+      var i = 0;
+      el.textContent = '';
+
+      typingTimer = setInterval(function () {
+        i++;
+        el.textContent = text.slice(0, i);
+
+        if (i >= text.length) {
+          clearInterval(typingTimer);
+          typingTimer = null;
+        }
+      }, 42);
+    }
+
+    function scrollBottom(el) {
+      if (!el) return;
+      el.scrollTo({ top: el.scrollHeight, behavior: reducedMotion ? 'auto' : 'smooth' });
+    }
+
+    function applyStep(step, sub) {
+      // ---- نماها ----
+      aliView.classList.toggle('active', step < 5);
+      saraView.classList.toggle('active', step >= 5);
+
+      // ---- کپشن و قرص‌ها ----
+      capTitle.textContent = TITLES[step];
+      capText.textContent = CAPS[step];
+
+      pills.forEach(function (p, i) {
+        p.classList.toggle('active', i <= step);
+      });
+
+      // ---- توکن‌ها ----
+      tkAli.classList.toggle('lit', step === 0 || step === 2 || step === 3);
+      tkSara.classList.toggle('lit', step === 0 || step === 6 || step === 7);
+
+      // ---- کادر تایپ علی ----
+      if (step === 0) {
+        clearInterval(typingTimer);
+        typingTimer = null;
+        inPlain.textContent = '';
+        inPlain.classList.remove('hide');
+        inCipher.classList.remove('show');
+      }
+
+      if (step === 1) {
+        inCipher.classList.remove('show');
+        inPlain.classList.remove('hide');
+
+        if (lastStep < 1) {
+          if (reducedMotion) {
+            inPlain.textContent = PLAIN;
+          } else {
+            typeInto(inPlain, PLAIN);
+          }
+        } else if (!typingTimer && inPlain.textContent !== PLAIN) {
+          inPlain.textContent = PLAIN;
+        }
+      }
+
+      if (step === 2) {
+        inCipher.classList.remove('show');
+        inPlain.classList.remove('hide');
+        if (!typingTimer && inPlain.textContent !== PLAIN) inPlain.textContent = PLAIN;
+      }
+
+      if (step === 3) {
+        clearInterval(typingTimer);
+        typingTimer = null;
+        inPlain.classList.add('hide');
+        inCipher.classList.add('show');
+      }
+
+      if (step >= 4) {
+        clearInterval(typingTimer);
+        typingTimer = null;
+        inPlain.textContent = '';
+        inPlain.classList.remove('hide');
+        inCipher.classList.remove('show');
+      }
+
+      // ---- نشانگر و دکمه ارسال ----
+      aliCaret.style.display = (step >= 1 && step <= 3) ? 'inline-block' : 'none';
+      aliSend.classList.toggle('pressed', step === 2 || step === 3);
+
+      // ---- توست اکستنشن (دید علی) ----
+      if (step === 2) {
+        aliToast.textContent = '🔒 قفل تایپ: Enter را گرفتم — اول رمز می‌کنم';
+        aliToast.classList.add('show');
+      } else if (step === 3) {
+        aliToast.textContent = '⠿ رمز شد: AES-256-GCM + الفبای بریل';
+        aliToast.classList.add('show');
+      } else {
+        aliToast.classList.remove('show');
+      }
+
+      // ---- پیام ارسالی و تیک‌ها ----
+      sentCipher.classList.toggle('show', step >= 4);
+      serverChip.classList.toggle('show', step >= 4);
+
+      if (step >= 5 || (step === 4 && sub > 0.45)) {
+        ticks.textContent = '✓✓';
+        ticks.classList.add('read');
+      } else {
+        ticks.textContent = '✓';
+        ticks.classList.remove('read');
+      }
+
+      // ---- دید سارا ----
+      saraBub.classList.toggle('show', step >= 5);
+      saraBub.classList.toggle('decrypted', step >= 6);
+
+      if (step === 6) {
+        saraToast.textContent = '🔍 رمزگشایی خودکار با توکن مشترک…';
+        saraToast.classList.add('show');
+      } else if (step === 7) {
+        saraToast.textContent = '✓ پیام رمزگشایی شد — برای پاسخ هم همین چرخه تکرار می‌شود';
+        saraToast.classList.add('show');
+      } else {
+        saraToast.classList.remove('show');
+      }
+
+      // ---- تایپ پاسخ سارا ----
+      saraInputPill.classList.toggle('typing', step >= 7);
+      if (step >= 7 && !saraReply.textContent) {
+        saraReply.textContent = 'آره، ساعت ۱۰ می‌بینمت 😄';
+      }
+
+      // ---- اسکرول خودکار بدنه چت ----
+      if (step > lastStep) {
+        if (step === 4) scrollBottom(aliBody);
+        if (step === 5 || step === 6) scrollBottom(saraBody);
+      }
+
+      lastStep = step;
+    }
+
+    function demoTick() {
+      if (!demoSec) return;
+
+      var rect = demoSec.getBoundingClientRect();
+      var total = demoSec.offsetHeight - window.innerHeight;
+
+      if (total <= 0) {
+        applyStep(STEPS - 1, 1);
+        return;
+      }
+
+      var passed = Math.min(Math.max(-rect.top, 0), total);
+      var p = passed / total;
+      var f = p * STEPS;
+
+      var step = Math.max(0, Math.min(STEPS - 1, Math.floor(f)));
+      var sub = f - step;
+
+      applyStep(step, sub);
+    }
+
+    window.addEventListener('scroll', demoTick, { passive: true });
+    window.addEventListener('resize', demoTick);
+    demoTick();
+  </script>
+</body>
+</html>
