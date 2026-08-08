@@ -5,9 +5,7 @@
 ![GitHub Issues](https://img.shields.io/github/issues/sammatrix-bit/zabansaz-apex?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 https://sammatrix-bit.github.io/zabansaz-apex/
-
-
-
+##توجه کد اصلی کامل کامل درفایل زیپ هست سورس کامل اوجا هست
 # ⠿ زبان‌ساز Apex (Zabansaz Apex)
 
 **رمزنگاری سرتاسری روی چت‌های وب — با ظاهر یک خط بریل**
