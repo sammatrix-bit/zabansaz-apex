@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تنظیمات Zabansaz Apex</title>
+  <style>
+    :root {
+      --bg: #120a22;
+      --card: #180f2b;
+      --card2: #100a1e;
+      --text: #f2edfb;
+      --muted: #a79ac6;
+      --accent: #a78bfa;
+      --accent2: #e879f9;
+      --ok: #34d399;
+      --danger: #fb7185;
+      --border: rgba(167, 139, 250, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.16), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(232, 121, 249, 0.08), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      font: 14px Tahoma, Arial, sans-serif;
+      direction: rtl;
+      padding: 18px;
+    }
+
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hlogo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 2px solid var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent2);
+      font-size: 20px;
+      transform: rotate(-4deg);
+      box-shadow: 0 0 18px rgba(139, 92, 246, 0.25);
+    }
+
+    .sub {
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-size: 13px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      color: #e9ddff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    section {
+      background: rgba(24, 15, 43, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 2;
+      margin: 0 0 12px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(167, 139, 250, 0.10);
+    }
+
+    .row:last-child {
+      border-bottom: 0;
+    }
+
+    .row .title {
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .row .desc {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.9;
+    }
+
+    .switch {
+      position: relative;
+      width: 42px;
+      height: 23px;
+      flex: none;
+      display: inline-block;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .switch i {
+      position: absolute;
+      inset: 0;
+      background: #100a1e;
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      border-radius: 999px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .switch i:after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #a79ac6;
+      transition: 0.2s;
+    }
+
+    .switch input:checked + i {
+      background: rgba(139, 92, 246, 0.4);
+      border-color: #a78bfa;
+    }
+
+    .switch input:checked + i:after {
+      left: 21px;
+      background: #e879f9;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: bold;
+      transition: 0.15s;
+    }
+
+    .btn.p {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.45), rgba(232, 121, 249, 0.45));
+      color: white;
+      border: 1px solid rgba(232, 121, 249, 0.4);
+      box-shadow: 0 6px 16px rgba(139, 92, 246, 0.2);
+    }
+
+    .btn.g {
+      background: rgba(139, 92, 246, 0.16);
+      color: #ddd1ff;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+
+    .btn.d {
+      background: rgba(251, 113, 133, 0.10);
+      color: #ffb3bd;
+      border: 1px solid rgba(251, 113, 133, 0.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    .form {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: var(--card2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 1px rgba(232, 121, 249, 0.25);
+    }
+
+    .checkline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .site {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--card2);
+      border: 1px solid rgba(167, 139, 250, 0.18);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .site .info {
+      min-width: 0;
+    }
+
+    .site b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .site small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      word-break: break-word;
+      direction: ltr;
+      text-align: right;
+    }
+
+    .site .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: none;
+    }
+
+    .empty {
+      color: var(--muted);
+      background: var(--card2);
+      border: 1px dashed rgba(167, 139, 250, 0.3);
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 12px;
+      line-height: 2;
+      text-align: center;
+    }
+
+    .default-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px;
+    }
+
+    .default-chip {
+      background: var(--card2);
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .default-chip .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 8px rgba(52, 211, 153, .5);
+      flex: none;
+    }
+
+    .default-chip span {
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .mini-switch {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent2);
+    }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .help-card {
+      background: var(--card2);
+      border: 1px solid rgba(167, 139, 250, 0.18);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .help-card b {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: #e9ddff;
+    }
+
+    .help-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 2;
+    }
+
+    .danger-zone {
+      border-color: rgba(251, 113, 133, 0.3) !important;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(10, 5, 20, 0.96), rgba(24, 15, 43, 0.96));
+      color: white;
+      border: 1px solid rgba(232, 121, 249, 0.5);
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s;
+      z-index: 999999;
+      max-width: 90vw;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    #toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1><span class="hlogo">⠿</span> تنظیمات Zabansaz Apex</h1>
+    <p class="sub">نسخه ۴.۰ — دکمه موبایل، سایت‌های سفارشی و راهنما</p>
+
+    <!-- دکمه موبایل -->
+    <section>
+      <h2>📱 دکمه رمزی موبایل</h2>
+
+      <div class="note">
+        این دکمه برای دستگاه‌هایی است که Enter ندارند (یا دسکتاپ با ماوس). وقتی داخل کادر نوشتن پیام بروی، یک دکمه کنار صفحه ظاهر می‌شود. با زدن آن، متن رمزگذاری می‌شود و در صورت فعال بودن «رمز و ارسال»، تلاش می‌کند پیام را مثل Enter بفرستد. اگر متن از قبل رمزشده باشد، با زدن دکمه آن را <b>رمزگشایی</b> می‌کند.
+      </div>
+
+      <div class="row">
+        <div>
+          <div class="title">فعال‌سازی دکمه رمزی</div>
+          <div class="desc">اگر خاموش باشد، دکمه کنار صفحه نمایش داده نمی‌شود.</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="mobileBtnToggle" />
+          <i></i>
+        </label>
+      </div>
+
+      <div class="row">
+        <div>
+          <div class="title">رمز و ارسال خودکار</div>
+          <div class="desc">
+            اگر روشن باشد: بعد از رمزکردن، تلاش می‌کند پیام را ارسال کند.<br />
+            اگر خاموش باشد: فقط متن را رمز می‌کند؛ خودت دکمه Send سایت را می‌زنی.
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="mobileSendToggle" />
+          <i></i>
+        </label>
+      </div>
+
+      <div class="row">
+        <div>
+          <div class="title">مخفی کردن دکمه شناور قدیمی</div>
+          <div class="desc">دکمه قدیمی (⚪) داخل صفحه چت را مخفی می‌کند تا فقط دکمه رمزی جدید دیده شود.</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="hideFabToggle" />
+          <i></i>
+        </label>
+      </div>
+
+      <div class="row">
+        <div>
+          <div class="title">ریست موقعیت دکمه</div>
+          <div class="desc">اگر دکمه را جایی بردی که بد شد، اینجا موقعیتش را به حالت پیش‌فرض برمی‌گرداند.</div>
+        </div>
+        <button id="resetPosBtn" class="btn g">ریست موقعیت</button>
+      </div>
+    </section>
+
+    <!-- سایت‌های سفارشی -->
+    <section>
+      <h2>🌐 سایت‌های سفارشی</h2>
+
+      <div class="note">
+        در این قسمت می‌توانی سایت‌هایی که می‌خواهی اکستنشن روی آن‌ها فعال باشد را اضافه کنی.
+        مثلاً برای اینستاگرام بنویس: <b>instagram.com</b><br />
+        بعد از افزودن، کروم از تو اجازه دسترسی به همان سایت را می‌خواهد. پس از افزودن، صفحه‌ی آن سایت را رفرش کن.
+      </div>
+
+      <div class="form">
+        <input type="text" id="siteName" placeholder="نام سایت (اختیاری) — مثلاً: اینستاگرام" />
+        <input type="text" id="siteDomain" placeholder="آدرس سایت — مثلاً: instagram.com" />
+        <label class="checkline">
+          <input type="checkbox" id="siteSub" checked />
+          شامل زیردامنه‌ها هم بشود (مثلاً web.example.com)
+        </label>
+        <button id="addSiteBtn" class="btn p">➕ افزودن سایت</button>
+      </div>
+
+      <div id="sitesList"></div>
+    </section>
+
+    <!-- سایت‌های پیش‌فرض -->
+    <section>
+      <h2>✅ سایت‌های پیش‌فرض</h2>
+      <div class="note">این سایت‌ها به‌صورت پیش‌فرض فعال هستند و نیازی به افزودن ندارند:</div>
+      <div class="default-list">
+        <div class="default-chip"><span class="dot"></span><span>web.rubika.ir</span></div>
+        <div class="default-chip"><span class="dot"></span><span>web.telegram.org</span></div>
+        <div class="default-chip"><span class="dot"></span><span>web.whatsapp.com</span></div>
+        <div class="default-chip"><span class="dot"></span><span>discord.com</span></div>
+      </div>
+    </section>
+
+    <!-- راهنما -->
+    <section>
+      <h2>📖 راهنمای سریع</h2>
+      <div class="help-grid">
+        <div class="help-card">
+          <b>🔑 ساخت زبان</b>
+          <p>از پاپ‌آپ اکستنشن یک زبان بساز. هر زبان یک توکن (و در سطح ساده یک کد کوتاه عددی) دارد که نقش کلید را بازی می‌کند.</p>
+        </div>
+        <div class="help-card">
+          <b>📤 اشتراک کلید</b>
+          <p>توکن را از یک راه امن (حضوری یا کانال مطمئن) به طرف مقابل بده. هر دو با یک توکن یک زبان مشترک خواهید داشت.</p>
+        </div>
+        <div class="help-card">
+          <b>⌨ روی کامپیوتر</b>
+          <p>اگر «قفل تایپ» روشن باشد، زدن Enter متن را رمز می‌کند و بعد می‌فرستد. برای ارسال بدون رمز، Shift+Enter را نگه‌دار یا قفل را خاموش کن.</p>
+        </div>
+        <div class="help-card">
+          <b>📱 روی موبایل</b>
+          <p>دکمه رمزی را از همین صفحه فعال کن. وقتی داخل کادر پیام باشی، دکمه‌ای کنار صفحه ظاهر می‌شود؛ با کشیدن می‌توانی جایش را عوض کنی.</p>
+        </div>
+        <div class="help-card">
+          <b>🔍 رمزگشایی خودکار</b>
+          <p>پیام‌های رمزشده‌ی همان زبان به‌صورت خودکار در چت باز می‌شوند و یک تیک بنفش ✓ می‌گیرند.</p>
+        </div>
+        <div class="help-card">
+          <b>🔒 امنیت</b>
+          <p>رمزنگاری AES-256-GCM با کلید مشتق‌شده vía HKDF-SHA256. توکن هرگز از دستگاهت خارج نمی‌شود مگر خودت کپی کنی.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- منطقه خطر -->
+    <section class="danger-zone">
+      <h2>⚠ منطقه خطر</h2>
+      <div class="note">این عملیات قابل بازگشت نیست. با احتیاط استفاده کن.</div>
+      <div class="row">
+        <div>
+          <div class="title">پاک‌کردن کل داده‌ها</div>
+          <div class="desc">همه زبان‌ها، تنظیمات و سایت‌های سفارشی حذف می‌شوند و اکستنشن به حالت اولیه برمی‌گردد.</div>
+        </div>
+        <button id="wipeBtn" class="btn d">🗑 پاک‌کردن همه چیز</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast"></div>
+
+  <script src="options.js"></script>
+</body>
+</html>
